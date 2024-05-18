@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login do candidato</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 h-screen flex items-center justify-center">
+    <form th:action="@{/candidate/signIn}" method="post" class="flex gap-24">
+        <div class="text-white max-w-80 text-6xl flex items-center">  
+            Gestão de Vagas
+        </div>
+        <div class="space-y-8 bg-zinc-950 rounded-md p-20">
+            <input type="text" name="username" 
+                class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
+                placeholder="Usuário"
+            >
+            <input type="password" name="password" 
+                class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
+                placeholder="Senha"
+            >
+
+            <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
+
+            <button class="bg-blue-600 w-96 p-3 rounded text-white hover:bg-blue-900">Login</button>
+
+            <a href="" class="text-white block text-center text-blue-600 underline underline-offset-2 hover:text-blue-600">Criar Conta</a>
+        </div>
+    </form>
+    
+</body>
+</html>
