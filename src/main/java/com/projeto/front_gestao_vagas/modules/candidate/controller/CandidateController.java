@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.Authentication;
 
 import com.projeto.front_gestao_vagas.modules.candidate.service.CandidateService;
+import com.projeto.front_gestao_vagas.modules.candidate.service.ProfileCandidateService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +28,9 @@ public class CandidateController {
 
     @Autowired
     private CandidateService candidateService;
+
+    @Autowired
+    private ProfileCandidateService profileCandidateService;
 
     @GetMapping("/login")
     public String login(){
@@ -41,7 +45,7 @@ public class CandidateController {
             var grants = token.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.toString().toUpperCase())).toList();
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(null, null, grants);
-            auth.setDetails(token);
+            auth.setDetails(token.getAccess_token());
 
             SecurityContextHolder.getContext().setAuthentication(auth);
             SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -60,6 +64,9 @@ public class CandidateController {
     @GetMapping("/profile")
     @PreAuthorize("hasRole('CANDIDATE')")
     public String profile(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var result = this.profileCandidateService.execute(authentication.getDetails().toString());
         return "/candidate/profile";
     }
     
