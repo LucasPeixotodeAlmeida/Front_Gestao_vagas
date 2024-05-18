@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 
 import com.projeto.front_gestao_vagas.modules.candidate.service.CandidateService;
+import com.projeto.front_gestao_vagas.modules.candidate.service.FindJobsService;
 import com.projeto.front_gestao_vagas.modules.candidate.service.ProfileCandidateService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +30,9 @@ public class CandidateController {
 
     @Autowired
     private ProfileCandidateService profileCandidateService;
+
+    @Autowired
+    private FindJobsService findJobsService;
 
     @GetMapping("/login")
     public String login(){
@@ -77,8 +81,22 @@ public class CandidateController {
 
     @GetMapping("/jobs")
     @PreAuthorize("hasRole('CANDIDATE')")
-    public String jobs(){
+    public String jobs(Model model, String filter){
+        try{
+            if (filter != null) {
+                //model.addAttribute("jobs", filter);
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                this.findJobsService.execute(getToken(), filter);
+            }
+        } catch(HttpClientErrorException e){
+            return "redirect:/candidate/login";
+        }
         return "/candidate/jobs";
+    }
+
+    private String getToken(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getDetails().toString();
     }
     
 }
