@@ -29,6 +29,11 @@
             />
             <button class="bg-blue-600 w-24 p-3 rounded text-white hover:bg-blue-900 ml-2">Buscar</button>
         </form>
+
+        <div th:each="job: ${jobs}" class="text-white">
+            <h3 th:text="${job.description}"></h3>
+            <span th:text="${job.level}"></span>
+        </div>
     </div>
     
 </body>

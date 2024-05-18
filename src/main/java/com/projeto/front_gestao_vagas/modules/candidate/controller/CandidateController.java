@@ -54,7 +54,6 @@ public class CandidateController {
             session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
             session.setAttribute("token", token);
 
-
             return "redirect:/candidate/profile";
 
         } catch (HttpClientErrorException e) {
@@ -84,9 +83,9 @@ public class CandidateController {
     public String jobs(Model model, String filter){
         try{
             if (filter != null) {
-                //model.addAttribute("jobs", filter);
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                this.findJobsService.execute(getToken(), filter);
+                
+                var jobs = this.findJobsService.execute(getToken(), filter);
+                model.addAttribute("jobs", jobs);
             }
         } catch(HttpClientErrorException e){
             return "redirect:/candidate/login";
