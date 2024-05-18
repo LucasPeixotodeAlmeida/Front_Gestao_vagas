@@ -1,8 +1,5 @@
 package com.projeto.front_gestao_vagas.modules.candidate.controller;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -66,12 +63,16 @@ public class CandidateController {
     @PreAuthorize("hasRole('CANDIDATE')")
     public String profile(Model model){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        var user = this.profileCandidateService.execute(authentication.getDetails().toString());
-
-        model.addAttribute("user", user);
-
-        return "/candidate/profile";
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            var user = this.profileCandidateService.execute(authentication.getDetails().toString());
+    
+            model.addAttribute("user", user);
+    
+            return "/candidate/profile";
+        }catch(HttpClientErrorException e){
+            return "redirect:/candidate/login";
+        }
     }
     
 }
