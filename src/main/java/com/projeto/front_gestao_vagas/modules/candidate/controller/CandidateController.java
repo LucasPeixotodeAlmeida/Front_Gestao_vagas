@@ -35,5 +35,10 @@ public class CandidateController {
             return "redirect:/candidate/login";
         }
     }
+
+    @GetMapping("/profile")
+    public String profile(){
+        return "/candidate/profile";
+    }
     
 }
