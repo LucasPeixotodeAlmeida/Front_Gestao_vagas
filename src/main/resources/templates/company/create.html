@@ -13,6 +13,7 @@
     <form id="submitForm" th:action="@{/company/create}" method="post" class="flex gap-24" th:object="${company}">
         <div class="space-y-8 bg-zinc-950 rounded-md p-10">
             <p class="text-white">Crie seu cadastro gratuitamente</p>
+            <div class="flex flex-row gap-10">
             <input type="text" name="username"
                 th:field="*{username}"
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
@@ -24,19 +25,23 @@
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
                 placeholder="Nome da empresa"
             >
+            </div>
 
+            <div class="flex flex-row gap-10">
             <input type="text" name="website"
             th:field="*{website}"
             class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
             placeholder="Link do website"
-        >
+            >
 
             <input type="email" name="email"
                 th:field="*{email}" 
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
                 placeholder="E-mail"
             >
+            </div>
 
+            <div class="flex flex-row gap-10">
             <input type="password" name="password" id="password"
                 th:field="*{password}" 
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
@@ -47,15 +52,18 @@
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
                 placeholder="Confirme sua senha"
             >
+            </div>
 
-            <textarea name="description" th:field="*{description}" class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" placeholder="Digite uma breve descrição sobre a empresa"></textarea>
+            <textarea name="description" th:field="*{description}" class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 h-36 w-full focus:outline-none focus:ring-blue-500 focus:ring-2" placeholder="Digite uma breve descrição sobre a empresa"></textarea>
 
             <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
             <p class="text-red-400 hidden" id="password_error">Confirme sua senha</p>
 
-            <button class="bg-blue-600 w-96 p-3 rounded text-white hover:bg-blue-900">Cdastrar-se</button>
-
-            <a href="/company/login" class="text-white block text-center text-blue-600 underline underline-offset-2 hover:text-blue-600">Login</a>
+            <button class="bg-blue-600 w-full p-3 rounded text-white hover:bg-blue-900">Cadastrar-se</button>
+            <p class="mt-4 text-white">
+                Já possui uma conta? <a href="/company/login" class="text-center text-blue-600 hover:text-blue-600">Faça login aqui</a>
+            </p>
+            
         </div>
         <div class="text-white max-w-80 text-6xl flex items-center">  
             Gestão de Vagas
