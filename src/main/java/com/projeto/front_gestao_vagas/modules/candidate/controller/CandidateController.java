@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import com.projeto.front_gestao_vagas.modules.candidate.dto.CreateCandidateDTO;
 import com.projeto.front_gestao_vagas.modules.candidate.service.ApplyJobService;
 import com.projeto.front_gestao_vagas.modules.candidate.service.CandidateService;
+import com.projeto.front_gestao_vagas.modules.candidate.service.CreateCandidateService;
 import com.projeto.front_gestao_vagas.modules.candidate.service.FindJobsService;
 import com.projeto.front_gestao_vagas.modules.candidate.service.ProfileCandidateService;
 
@@ -41,6 +42,9 @@ public class CandidateController {
 
     @Autowired
     private ApplyJobService applyJobService;
+
+    @Autowired
+    private CreateCandidateService createCandidateService;
 
     @GetMapping("/login")
     public String login(){
@@ -116,7 +120,13 @@ public class CandidateController {
 
     @PostMapping("/create")
     public String save(CreateCandidateDTO candidate, Model model){
-        System.out.println("nome candidato" + candidate.getName());
+
+        try {
+            this.createCandidateService.execute(candidate);
+        } catch (HttpClientErrorException ex) {
+            model.addAttribute("error_message", ex.getMessage());
+        }
+
         model.addAttribute("candidate", candidate);
         return "/candidate/create";
     }

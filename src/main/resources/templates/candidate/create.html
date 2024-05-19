@@ -44,6 +44,7 @@
 
             <textarea name="description" th:field="*{description}" class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" placeholder="Digite uma breve descrição sobre você"></textarea>
 
+            <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
             <p class="text-red-400 hidden" id="password_error">Confirme sua senha</p>
 
             <button class="bg-blue-600 w-96 p-3 rounded text-white hover:bg-blue-900">Cdastrar-se</button>
