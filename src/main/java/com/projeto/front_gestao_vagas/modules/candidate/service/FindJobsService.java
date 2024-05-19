@@ -3,6 +3,7 @@ package com.projeto.front_gestao_vagas.modules.candidate.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class FindJobsService {
+
+    @Value("${host.api.gestao.vagas}")
+    private String hostAPIGestaoVagas;
     
     public List<JobDTO> execute(String token, String filter){
         RestTemplate rt = new RestTemplate();
@@ -28,7 +32,9 @@ public class FindJobsService {
 
         HttpEntity<Map<String, String>> request = new HttpEntity<>(headers);
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/candidate/job")
+        String url = hostAPIGestaoVagas.concat("/candidate/job");
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
             .queryParam("filter", filter);
 
         ParameterizedTypeReference<List<JobDTO>> responseType = new ParameterizedTypeReference<List<JobDTO>>(){};

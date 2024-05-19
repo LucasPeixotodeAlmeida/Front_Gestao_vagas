@@ -1,5 +1,6 @@
 package com.projeto.front_gestao_vagas.modules.company.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,6 +11,10 @@ import com.projeto.front_gestao_vagas.modules.company.dto.CreateCompanyDTO;
 
 @Service
 public class CreateCompanyService {
+
+    @Value("${host.api.gestao.vagas}")
+    private String hostAPIGestaoVagas;
+
         public String execute(CreateCompanyDTO createCompanyDTO){
         RestTemplate rt = new RestTemplate();
 
@@ -18,6 +23,8 @@ public class CreateCompanyService {
 
         HttpEntity<CreateCompanyDTO> request = new HttpEntity<>(createCompanyDTO, headers);
 
-        return rt.postForObject("http://localhost:8080/company/", request, String.class);
+        String url = hostAPIGestaoVagas.concat("/company/");
+
+        return rt.postForObject(url, request, String.class);
     }
 }
