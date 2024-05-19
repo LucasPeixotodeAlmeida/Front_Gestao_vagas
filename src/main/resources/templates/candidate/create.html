@@ -10,35 +10,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 h-screen flex items-center justify-center">
-    <form id="submitForm" th:action="@{/candidate/signIn}" method="post" class="flex gap-24">
+    <form id="submitForm" th:action="@{/candidate/create}" method="post" class="flex gap-24" th:object="${candidate}">
         <div class="space-y-8 bg-zinc-950 rounded-md p-10">
             <p class="text-white">Crie seu cadastro gratuitamente</p>
-            <input type="text" name="username" 
+            <input type="text" name="username"
+                th:field="*{username}"
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
                 placeholder="Nome de usuário"
             >
 
-            <input type="text" name="name" 
-            class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
-            placeholder="Nome completo"
+            <input type="text" name="name"
+                th:field="*{name}" 
+                class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
+                placeholder="Nome completo"
             >
 
-            <input type="email" name="email" 
-            class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
-            placeholder="E-mail"
+            <input type="email" name="email"
+                th:field="*{email}" 
+                class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
+                placeholder="E-mail"
             >
 
-            <input type="password" name="password" id="password" 
+            <input type="password" name="password" id="password"
+                th:field="*{password}" 
                 class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
                 placeholder="Senha"
             >
 
             <input type="password" name="confirmPassword" id="confirmPassword"
-            class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
-            placeholder="Confirme sua senha"
+                class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" 
+                placeholder="Confirme sua senha"
             >
 
-            <textarea name="description" class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" placeholder="Digite uma breve descrição sobre você"></textarea>
+            <textarea name="description" th:field="*{description}" class="bg-gray-300 text-gray-900 text-xd rounded w-96 block p-3 focus:outline-none focus:ring-blue-500 focus:ring-2" placeholder="Digite uma breve descrição sobre você"></textarea>
 
             <p class="text-red-400 hidden" id="password_error">Confirme sua senha</p>
 
