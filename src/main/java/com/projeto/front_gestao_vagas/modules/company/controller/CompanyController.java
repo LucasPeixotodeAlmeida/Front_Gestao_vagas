@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.projeto.front_gestao_vagas.modules.candidate.service.ListAllJobsCompanyService;
 import com.projeto.front_gestao_vagas.modules.company.dto.CreateCompanyDTO;
 import com.projeto.front_gestao_vagas.modules.company.dto.CreateJobsDTO;
 import com.projeto.front_gestao_vagas.modules.company.service.CompanyService;
@@ -36,6 +37,9 @@ public class CompanyController {
 
     @Autowired
     private CreateJobsService createJobsService;
+
+    @Autowired
+    private ListAllJobsCompanyService listAllJobsCompanyService;
 
     @GetMapping("/create")
     public String create(Model model){
@@ -102,7 +106,10 @@ public class CompanyController {
     @GetMapping("/jobs/list")
     @PreAuthorize("hasRole('COMPANY')")
     public String list(Model model){
-        //model.addAttribute("jobs", new CreateJobsDTO());
+        
+        var result = this.listAllJobsCompanyService.execute(getToken());
+        model.addAttribute("jobs", result);
+        System.out.println(result);
         return "/company/list";
     }
 
