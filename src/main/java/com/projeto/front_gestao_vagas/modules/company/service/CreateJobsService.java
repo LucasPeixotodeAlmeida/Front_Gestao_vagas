@@ -1,7 +1,5 @@
 package com.projeto.front_gestao_vagas.modules.company.service;
 
-import java.util.UUID;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
